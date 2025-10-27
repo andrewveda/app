@@ -2,7 +2,7 @@
   "name": "V for Video Quest",
   "short_name": "VideoQuest",
   "description": "Interactive video quiz application",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0b0c1b",
   "theme_color": "#1f1f2e",
