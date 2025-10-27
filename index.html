@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-title" content="VideoQuest">
   
   <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="./manifest.json">
   
   <!-- Apple Touch Icons -->
   <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
@@ -185,7 +185,7 @@
     // PWA: Register Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
+        navigator.serviceWorker.register('./service-worker.js')
           .then((registration) => {
             console.log('✅ Service Worker registered:', registration);
           })
