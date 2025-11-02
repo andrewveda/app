@@ -1,7 +1,6 @@
 const CACHE_NAME = 'srm-vec-english-v1';
 const urlsToCache = [
   './',
-  './index.html',
   './style.css',
   './manifest.json'
 ];
