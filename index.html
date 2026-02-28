@@ -14,440 +14,441 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#1c1410;--bg2:#241a10;--bg3:#2e2216;--surface:#3a2c1c;--border:#5a4028;
-  --gold:#c8973a;--gold-l:#e8b84b;--gold-d:#8a6420;
+  --gold:#c8973a;--gold-l:#e8b84b;--gold-d:#7a5418;
   --cream:#f0dfc0;--cream-d:#c8b090;--white:#f8f0e4;
   --red:#c0392b;--green:#27ae60;
   --light-sq:#f0d9b5;--dark-sq:#b58863;
-  --light-sq-hl:#cdd26a;--dark-sq-hl:#aaa23a;
-  --light-sq-sel:#7fc97f;--dark-sq-sel:#5a9e5a;
-  --font-serif:'Playfair Display',Georgia,serif;
-  --font-mono:'DM Mono',monospace;
-  --font-sans:'DM Sans',system-ui,sans-serif;
-  --radius:8px;--shadow:0 4px 24px rgba(0,0,0,0.5)
+  --light-hl:#cdd26a;--dark-hl:#aaa23a;
+  --light-sel:#7fc97f;--dark-sel:#5a9e5a;
+  --ff:'Playfair Display',Georgia,serif;
+  --fm:'DM Mono',monospace;
+  --fs:'DM Sans',system-ui,sans-serif;
+  --r:8px;
 }
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--cream);font-family:var(--font-sans)}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--cream);font-family:var(--fs)}
 .screen{position:fixed;inset:0;display:none;flex-direction:column;overflow-y:auto}
 .screen.active{display:flex}
 
-/* WELCOME */
-#welcome-screen{align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 30%,#3a2c1c 0%,#1c1410 70%)}
-.welcome-inner{text-align:center;padding:2rem;max-width:380px;width:100%}
-.logo-piece{font-size:5rem;line-height:1;margin-bottom:1rem;filter:drop-shadow(0 4px 12px rgba(200,151,58,0.4))}
-.welcome-title{font-family:var(--font-serif);font-size:2.8rem;color:var(--gold-l);letter-spacing:-0.02em;margin-bottom:.25rem}
-.welcome-sub{color:var(--cream-d);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2.5rem}
-.welcome-form input{width:100%;padding:.85rem 1.1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:var(--font-sans);font-size:1rem;outline:none;transition:border-color .2s;margin-bottom:.75rem}
-.welcome-form input:focus{border-color:var(--gold)}
-.welcome-form input::placeholder{color:var(--cream-d);opacity:.5}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.8rem 1.5rem;border-radius:var(--radius);border:none;cursor:pointer;font-family:var(--font-sans);font-size:.95rem;font-weight:500;transition:all .15s}
-.btn-primary{background:var(--gold);color:var(--bg)}
-.btn-primary:hover{background:var(--gold-l);transform:translateY(-1px)}
-.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--cream-d)}
-.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
-.btn-danger{background:var(--red);color:#fff}
-.btn-danger:hover{opacity:.85}
-.btn-sm{padding:.45rem .85rem;font-size:.82rem}
+/* ── WELCOME ── */
+#s-welcome{align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 30%,#3a2c1c,#1c1410 70%)}
+.w-inner{text-align:center;padding:2rem;max-width:360px;width:100%}
+.w-piece{font-size:5rem;margin-bottom:.75rem;filter:drop-shadow(0 4px 16px rgba(200,151,58,.45))}
+.w-title{font-family:var(--ff);font-size:2.8rem;color:var(--gold-l);letter-spacing:-.02em;margin-bottom:.2rem}
+.w-sub{color:var(--cream-d);font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2.25rem}
+.w-form input{width:100%;padding:.85rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);color:var(--white);font-family:var(--fs);font-size:1rem;outline:none;margin-bottom:.65rem;transition:border-color .2s}
+.w-form input:focus{border-color:var(--gold)}
+.w-form input::placeholder{color:var(--cream-d);opacity:.45}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.75rem 1.4rem;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--fs);font-size:.92rem;font-weight:500;transition:all .15s;text-decoration:none}
+.btn-p{background:var(--gold);color:var(--bg)}.btn-p:hover{background:var(--gold-l);transform:translateY(-1px)}
+.btn-g{background:transparent;border:1px solid var(--border);color:var(--cream-d)}.btn-g:hover{border-color:var(--gold);color:var(--gold)}
+.btn-d{background:var(--red);color:#fff}.btn-d:hover{opacity:.85}
+.btn-sm{padding:.4rem .8rem;font-size:.8rem}
 .btn-full{width:100%}
-.admin-link{margin-top:1.5rem;font-size:.8rem;color:var(--cream-d);opacity:.4;cursor:pointer;transition:opacity .2s}
-.admin-link:hover{opacity:.8}
 
-/* APP LAYOUT */
-#app-screen{flex-direction:column;background:var(--bg)}
-.app-header{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
-.header-logo{font-family:var(--font-serif);font-size:1.3rem;color:var(--gold)}
-.header-user{display:flex;align-items:center;gap:.75rem}
-.user-rating{font-family:var(--font-mono);font-size:.85rem;color:var(--gold-l)}
-.streak-badge{display:flex;align-items:center;gap:.25rem;font-size:.82rem;color:#e67e22}
-.avatar{width:28px;height:28px;border-radius:50%;background:var(--gold-d);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;color:var(--bg)}
+/* ── APP ── */
+#s-app{flex-direction:column}
+.app-hdr{display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
+.hdr-logo{font-family:var(--ff);font-size:1.25rem;color:var(--gold)}
+.hdr-right{display:flex;align-items:center;gap:.65rem}
+.rating{font-family:var(--fm);font-size:.85rem;color:var(--gold-l)}
+.streak{font-size:.82rem;color:#e67e22}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--gold-d);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--cream)}
 .tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
-.tab{flex:1;padding:.65rem;text-align:center;font-size:.78rem;color:var(--cream-d);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.05em;text-transform:uppercase}
-.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
-.tab-content{flex:1;overflow-y:auto;display:none;flex-direction:column}
-.tab-content.active{display:flex}
+.tab{flex:1;padding:.6rem;text-align:center;font-size:.75rem;color:var(--cream-d);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.06em;text-transform:uppercase}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-body{flex:1;overflow-y:auto;display:none;flex-direction:column}
+.tab-body.on{display:flex}
 
-/* PUZZLE TAB */
-.filter-bar{padding:.6rem 1rem;display:flex;gap:.4rem;overflow-x:auto;flex-shrink:0;border-bottom:1px solid var(--border);background:var(--bg2)}
+/* ── PUZZLE TAB ── */
+.filter-bar{padding:.55rem .85rem;display:flex;gap:.35rem;overflow-x:auto;flex-shrink:0;border-bottom:1px solid var(--border);background:var(--bg2);scrollbar-width:none}
 .filter-bar::-webkit-scrollbar{display:none}
-.filter-chip{padding:.3rem .7rem;border-radius:20px;font-size:.75rem;border:1px solid var(--border);color:var(--cream-d);background:transparent;cursor:pointer;white-space:nowrap;transition:all .15s}
-.filter-chip.active{background:var(--gold-d);border-color:var(--gold);color:var(--gold-l)}
-.puzzle-meta{padding:.55rem 1rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
-.theme-tag{padding:.25rem .6rem;border-radius:20px;font-size:.72rem;font-weight:500;background:var(--surface);color:var(--cream-d);border:1px solid var(--border)}
-.difficulty-badge{padding:.25rem .6rem;border-radius:20px;font-size:.72rem;font-weight:600}
-.diff-easy{background:#1e4d2b;color:#5dba7d;border:1px solid #27ae60}
-.diff-medium{background:#4d3a0a;color:#e8b84b;border:1px solid #c8973a}
-.diff-hard{background:#4d1a14;color:#e87070;border:1px solid #c0392b}
-.puzzle-prompt{padding:.55rem 1rem;font-size:.85rem;color:var(--cream-d);flex-shrink:0}
-.puzzle-prompt strong{color:var(--cream)}
+.chip{padding:.25rem .65rem;border-radius:20px;font-size:.72rem;border:1px solid var(--border);color:var(--cream-d);background:transparent;cursor:pointer;white-space:nowrap;transition:all .15s}
+.chip.on{background:var(--gold-d);border-color:var(--gold);color:var(--gold-l)}
+.pz-meta{padding:.5rem .9rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;min-height:34px}
+.tag{padding:.22rem .55rem;border-radius:20px;font-size:.7rem;font-weight:500;background:var(--surface);color:var(--cream-d);border:1px solid var(--border)}
+.dbadge{padding:.22rem .55rem;border-radius:20px;font-size:.7rem;font-weight:600}
+.d-easy{background:#1e4d2b;color:#5dba7d;border:1px solid #27ae60}
+.d-medium{background:#4d3a0a;color:#e8b84b;border:1px solid #c8973a}
+.d-hard{background:#4d1a14;color:#e87070;border:1px solid #c0392b}
+.pz-prompt{padding:.5rem .9rem;font-size:.84rem;color:var(--cream-d);flex-shrink:0}
+.pz-prompt strong{color:var(--cream)}
+.pz-title{font-family:var(--ff);font-size:.92rem;color:var(--gold-l);margin-left:auto}
 
-/* BOARD */
-.board-wrap{display:flex;align-items:center;justify-content:center;padding:.6rem;flex-shrink:0}
-.board-coords-wrap{display:grid;grid-template-columns:16px 1fr;grid-template-rows:1fr 16px;gap:0}
-.coord-ranks{display:flex;flex-direction:column;grid-column:1;grid-row:1}
-.coord-files{display:flex;grid-column:2;grid-row:2}
-.coord-cell{display:flex;align-items:center;justify-content:center;font-size:.58rem;font-family:var(--font-mono);color:var(--cream-d);opacity:.55}
-#board{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:min(90vw,420px);height:min(90vw,420px);border:3px solid #5a3a1a;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,.7),inset 0 0 0 1px rgba(200,151,58,.1);user-select:none;touch-action:none}
-.sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .1s}
-.sq.light{background:var(--light-sq)}.sq.dark{background:var(--dark-sq)}
-.sq.hl.light{background:var(--light-sq-hl)}.sq.hl.dark{background:var(--dark-sq-hl)}
-.sq.sel.light{background:var(--light-sq-sel)}.sq.sel.dark{background:var(--dark-sq-sel)}
-.sq.lm.light{background:#cdd26a}.sq.lm.dark{background:#aaa23a}
-.sq.wf.light{background:#e87070!important}.sq.wf.dark{background:#c0392b!important}
-.sq.cf.light{background:#7fc97f!important}.sq.cf.dark{background:#5a9e5a!important}
-.sq.hover-target{background:rgba(200,151,58,.25)!important}
+/* ── BOARD ── */
+.board-wrap{display:flex;align-items:center;justify-content:center;padding:.55rem;flex-shrink:0}
+.bc-grid{display:grid;grid-template-columns:14px 1fr;grid-template-rows:1fr 14px}
+.c-ranks{display:flex;flex-direction:column;grid-column:1;grid-row:1}
+.c-files{display:flex;grid-column:2;grid-row:2}
+.c-cell{display:flex;align-items:center;justify-content:center;font-size:.55rem;font-family:var(--fm);color:var(--cream-d);opacity:.5}
+#board{display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);width:min(88vw,410px);height:min(88vw,410px);border:3px solid #5a3a1a;border-radius:2px;box-shadow:0 8px 40px rgba(0,0,0,.75),inset 0 0 0 1px rgba(200,151,58,.08);user-select:none;touch-action:none}
+.sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sq.lt{background:var(--light-sq)}.sq.dk{background:var(--dark-sq)}
+.sq.hl.lt{background:var(--light-hl)}.sq.hl.dk{background:var(--dark-hl)}
+.sq.sl.lt{background:var(--light-sel)}.sq.sl.dk{background:var(--dark-sel)}
+.sq.lm.lt{background:#cdd26a}.sq.lm.dk{background:#aaa23a}
+.sq.wf.lt{background:#e07070!important}.sq.wf.dk{background:#b03030!important}
+.sq.cf.lt{background:#70c070!important}.sq.cf.dk{background:#409040!important}
+.sq.hov{background:rgba(200,151,58,.28)!important}
 .dot{width:28%;height:28%;border-radius:50%;background:rgba(0,0,0,.18);pointer-events:none;position:absolute}
-.cap-ring{width:88%;height:88%;border-radius:50%;border:4px solid rgba(0,0,0,.22);pointer-events:none;position:absolute}
-.piece{width:88%;height:88%;display:flex;align-items:center;justify-content:center;font-size:calc(min(90vw,420px)/10);line-height:1;pointer-events:none;position:relative;z-index:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
-.piece.dragging{opacity:.25}
-.drag-ghost{position:fixed;pointer-events:none;z-index:9999;font-size:calc(min(90vw,420px)/8.5);transform:translate(-50%,-50%);filter:drop-shadow(0 4px 8px rgba(0,0,0,.6));display:none}
+.cring{width:87%;height:87%;border-radius:50%;border:4px solid rgba(0,0,0,.2);pointer-events:none;position:absolute}
+.piece{width:87%;height:87%;display:flex;align-items:center;justify-content:center;font-size:calc(min(88vw,410px)/10);line-height:1;pointer-events:none;z-index:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.55))}
+.piece.faded{opacity:.2}
+.ghost{position:fixed;pointer-events:none;z-index:9999;font-size:calc(min(88vw,410px)/8.5);transform:translate(-50%,-50%);filter:drop-shadow(0 4px 10px rgba(0,0,0,.6));display:none}
 
-.puzzle-controls{padding:.65rem 1rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;border-top:1px solid var(--border);flex-shrink:0}
-.feedback-msg{font-size:.85rem;padding:.4rem .75rem;border-radius:var(--radius);flex:1;min-width:140px}
-.feedback-msg.correct{background:#1e4d2b;color:#5dba7d;border:1px solid #27ae60}
-.feedback-msg.wrong{background:#4d1a14;color:#e87070;border:1px solid #c0392b}
-.feedback-msg.info{background:var(--surface);color:var(--cream-d);border:1px solid var(--border)}
+/* ── CONTROLS ── */
+.pz-ctrl{padding:.6rem .9rem;display:flex;gap:.45rem;align-items:center;border-top:1px solid var(--border);flex-shrink:0;flex-wrap:wrap}
+.fbk{font-size:.83rem;padding:.38rem .7rem;border-radius:var(--r);flex:1;min-width:120px}
+.fbk.ok{background:#1e4d2b;color:#5dba7d;border:1px solid #27ae60}
+.fbk.bad{background:#4d1a14;color:#e87070;border:1px solid #c0392b}
+.fbk.info{background:var(--surface);color:var(--cream-d);border:1px solid var(--border)}
 
-/* PROGRESS TAB */
-.prog-inner{padding:1rem;display:flex;flex-direction:column;gap:1rem}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center}
-.stat-val{font-family:var(--font-mono);font-size:1.8rem;color:var(--gold-l);font-weight:500}
-.stat-label{font-size:.72rem;color:var(--cream-d);margin-top:.2rem;text-transform:uppercase;letter-spacing:.08em}
-.section-title{font-family:var(--font-serif);font-size:1.1rem;color:var(--gold);margin-bottom:.5rem}
-.history-list{display:flex;flex-direction:column;gap:.4rem}
-.history-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:.55rem .85rem;display:flex;justify-content:space-between;align-items:center;font-size:.82rem}
-.hr-ok{background:#1e4d2b;color:#5dba7d;font-size:.72rem;padding:.18rem .45rem;border-radius:4px}
-.hr-fail{background:#4d1a14;color:#e87070;font-size:.72rem;padding:.18rem .45rem;border-radius:4px}
-.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--cream-d)}
-.empty-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.35}
-.empty-state p{font-size:.88rem;opacity:.55}
+/* ── LOADING ── */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:1rem;color:var(--cream-d)}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-text{font-size:.88rem;letter-spacing:.06em}
 
-/* ADMIN */
-#admin-screen{background:var(--bg)}
-.admin-header{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
-.admin-header h2{font-family:var(--font-serif);color:var(--gold);font-size:1.3rem}
-.admin-body{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:1.25rem}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem}
-.card-title{font-family:var(--font-serif);color:var(--gold);font-size:1rem;margin-bottom:.75rem}
-label{display:block;font-size:.78rem;color:var(--cream-d);margin-bottom:.28rem;margin-top:.65rem;letter-spacing:.05em;text-transform:uppercase}
-label:first-child{margin-top:0}
-input[type=text],input[type=password],textarea,select{width:100%;padding:.65rem .85rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--white);font-family:var(--font-sans);font-size:.9rem;outline:none;transition:border-color .2s;resize:vertical}
-input:focus,textarea:focus,select:focus{border-color:var(--gold)}
-textarea{min-height:72px}
-select option{background:var(--bg3)}
-.theme-cbs{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}
-.tcb{display:flex;align-items:center;gap:.3rem;font-size:.78rem;color:var(--cream-d);cursor:pointer;padding:.22rem .55rem;border-radius:20px;border:1px solid var(--border);background:var(--bg3);transition:all .15s;user-select:none}
-.tcb input{display:none}
-.tcb.on{background:var(--gold-d);border-color:var(--gold);color:var(--gold-l)}
-.pz-list{display:flex;flex-direction:column;gap:.45rem}
-.pz-item{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem .85rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
-.pz-left{flex:1;min-width:0}
-.pz-name{font-size:.88rem;color:var(--cream);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pz-meta{font-size:.72rem;color:var(--cream-d);margin-top:.12rem}
-.user-list{display:flex;flex-direction:column;gap:.45rem}
-.user-item{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem .85rem;display:flex;justify-content:space-between;align-items:center}
-.user-name{font-size:.88rem;color:var(--cream)}
-.user-stats{font-size:.76rem;color:var(--cream-d);font-family:var(--font-mono)}
-.admin-login-wrap{display:flex;flex-direction:column;gap:.75rem;max-width:300px;margin:auto;padding:2rem 1rem}
-.admin-login-wrap h2{font-family:var(--font-serif);color:var(--gold);font-size:1.4rem;text-align:center}
-.flex-row{display:flex;gap:.5rem}
-.mt{margin-top:.5rem}
-.text-sm{font-size:.8rem;color:var(--cream-d)}
+/* ── PROGRESS TAB ── */
+.prog-body{padding:1rem;display:flex;flex-direction:column;gap:1rem}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.9rem;text-align:center}
+.stat-v{font-family:var(--fm);font-size:1.75rem;color:var(--gold-l)}
+.stat-l{font-size:.7rem;color:var(--cream-d);margin-top:.18rem;text-transform:uppercase;letter-spacing:.08em}
+.sec-title{font-family:var(--ff);font-size:1.05rem;color:var(--gold);margin-bottom:.45rem}
+.hist{display:flex;flex-direction:column;gap:.35rem}
+.hist-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.5rem .8rem;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+.hr-ok{background:#1e4d2b;color:#5dba7d;font-size:.7rem;padding:.16rem .42rem;border-radius:4px}
+.hr-fail{background:#4d1a14;color:#e87070;font-size:.7rem;padding:.16rem .42rem;border-radius:4px}
 
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;max-width:340px;width:100%;box-shadow:var(--shadow)}
-.modal h3{font-family:var(--font-serif);color:var(--gold-l);font-size:1.4rem;margin-bottom:.45rem}
-.modal p{font-size:.9rem;color:var(--cream-d);margin-bottom:1.25rem;line-height:1.55}
-.modal-btns{display:flex;gap:.5rem}
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.4rem;max-width:330px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.modal h3{font-family:var(--ff);color:var(--gold-l);font-size:1.35rem;margin-bottom:.4rem}
+.modal p{font-size:.88rem;color:var(--cream-d);margin-bottom:1.1rem;line-height:1.55}
+.modal-btns{display:flex;gap:.45rem}
 
-/* TOAST */
-#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(3rem);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem 1.2rem;font-size:.88rem;color:var(--cream);z-index:1000;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;box-shadow:var(--shadow)}
+/* ── EMPTY / ERROR ── */
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--cream-d)}
+.empty-ico{font-size:2.5rem;margin-bottom:.7rem;opacity:.3}
+.empty p{font-size:.85rem;opacity:.5;line-height:1.6}
+.empty code{font-family:var(--fm);font-size:.78rem;background:var(--surface);padding:.15rem .4rem;border-radius:4px;color:var(--gold-l)}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:1.75rem;left:50%;transform:translateX(-50%) translateY(3rem);background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:.55rem 1.1rem;font-size:.85rem;color:var(--cream);z-index:1000;transition:transform .28s,opacity .28s;opacity:0;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5)}
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ── CONTRIBUTE BOX ── */
+.contribute{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;margin:.75rem;font-size:.8rem;color:var(--cream-d);line-height:1.6}
+.contribute strong{color:var(--cream-d);display:block;margin-bottom:.3rem}
+.contribute code{font-family:var(--fm);font-size:.75rem;background:var(--surface);padding:.1rem .35rem;border-radius:3px;color:var(--gold-l)}
 </style>
 </head>
 <body>
 
 <!-- WELCOME -->
-<div id="welcome-screen" class="screen active">
-  <div class="welcome-inner">
-    <div class="logo-piece">♟</div>
-    <h1 class="welcome-title">Tactic</h1>
-    <p class="welcome-sub">Club Tactics Trainer</p>
-    <div class="welcome-form">
-      <input type="text" id="nickname-input" placeholder="Enter your nickname…" maxlength="24" autocomplete="off">
-      <button class="btn btn-primary btn-full" onclick="App.login()">Start Training</button>
+<div id="s-welcome" class="screen active">
+  <div class="w-inner">
+    <div class="w-piece">♟</div>
+    <h1 class="w-title">Tactic</h1>
+    <p class="w-sub">Club Tactics Trainer</p>
+    <div class="w-form">
+      <input type="text" id="nick-input" placeholder="Your nickname…" maxlength="24" autocomplete="off" spellcheck="false">
+      <button class="btn btn-p btn-full" onclick="A.login()">Start Training</button>
     </div>
-    <div class="admin-link" onclick="App.showAdminLogin()">Admin ›</div>
   </div>
 </div>
 
-<!-- MAIN APP -->
-<div id="app-screen" class="screen">
-  <header class="app-header">
-    <span class="header-logo">♟ Tactic</span>
-    <div class="header-user">
-      <span class="streak-badge">🔥 <span id="streak-count">0</span></span>
-      <span class="user-rating" id="user-rating">1200</span>
-      <div class="avatar" id="user-avatar">?</div>
+<!-- APP -->
+<div id="s-app" class="screen">
+  <header class="app-hdr">
+    <span class="hdr-logo">♟ Tactic</span>
+    <div class="hdr-right">
+      <span class="streak">🔥<span id="h-streak">0</span></span>
+      <span class="rating" id="h-rating">1200</span>
+      <div class="avatar" id="h-avatar">?</div>
     </div>
   </header>
   <div class="tabs">
-    <div class="tab active" onclick="App.switchTab('puzzle')">Puzzles</div>
-    <div class="tab" onclick="App.switchTab('progress')">Progress</div>
+    <div class="tab on" onclick="A.tab('puzzle')">Puzzles</div>
+    <div class="tab" onclick="A.tab('progress')">Progress</div>
+    <div class="tab" onclick="A.tab('info')">Info</div>
   </div>
 
   <!-- PUZZLE -->
-  <div id="puzzle-tab" class="tab-content active">
+  <div id="tb-puzzle" class="tab-body on">
     <div class="filter-bar" id="filter-bar">
-      <div class="filter-chip active" data-theme="all" onclick="App.setTheme('all')">All</div>
-      <div class="filter-chip" data-theme="Mate" onclick="App.setTheme('Mate')">Mate</div>
-      <div class="filter-chip" data-theme="Fork" onclick="App.setTheme('Fork')">Fork</div>
-      <div class="filter-chip" data-theme="Pin" onclick="App.setTheme('Pin')">Pin & Skewer</div>
-      <div class="filter-chip" data-theme="Discovery" onclick="App.setTheme('Discovery')">Discovery</div>
-      <div class="filter-chip" data-theme="Endgame" onclick="App.setTheme('Endgame')">Endgame</div>
-      <div class="filter-chip" data-theme="Opening" onclick="App.setTheme('Opening')">Opening Trap</div>
-      <div class="filter-chip" data-theme="Zugzwang" onclick="App.setTheme('Zugzwang')">Zugzwang</div>
+      <div class="chip on" data-t="all" onclick="A.theme('all')">All</div>
+      <div class="chip" data-t="Mate" onclick="A.theme('Mate')">Mate</div>
+      <div class="chip" data-t="Fork" onclick="A.theme('Fork')">Fork</div>
+      <div class="chip" data-t="Pin" onclick="A.theme('Pin')">Pin &amp; Skewer</div>
+      <div class="chip" data-t="Discovery" onclick="A.theme('Discovery')">Discovery</div>
+      <div class="chip" data-t="Endgame" onclick="A.theme('Endgame')">Endgame</div>
+      <div class="chip" data-t="Opening" onclick="A.theme('Opening')">Opening Trap</div>
+      <div class="chip" data-t="Zugzwang" onclick="A.theme('Zugzwang')">Zugzwang</div>
     </div>
-    <div class="puzzle-meta">
-      <span class="theme-tag" id="meta-theme">—</span>
-      <span class="difficulty-badge diff-medium" id="meta-diff">Medium</span>
-      <span class="text-sm" id="meta-name"></span>
+    <div class="pz-meta" id="pz-meta">
+      <span class="tag" id="m-theme">—</span>
+      <span class="dbadge d-medium" id="m-diff">medium</span>
+      <span class="pz-title" id="m-title"></span>
     </div>
-    <div class="puzzle-prompt" id="puzzle-prompt"><strong>White</strong> to move</div>
-    <div class="board-wrap">
-      <div class="board-coords-wrap">
-        <div class="coord-ranks" id="coord-ranks"></div>
-        <div id="board"></div>
-        <div style="width:16px"></div>
-        <div class="coord-files" id="coord-files"></div>
+    <div class="pz-prompt" id="pz-prompt"><strong>White</strong> to move</div>
+
+    <!-- Loading state -->
+    <div class="loading" id="loading-state">
+      <div class="spinner"></div>
+      <div class="load-text">Loading puzzles…</div>
+    </div>
+
+    <!-- Board (hidden while loading) -->
+    <div id="board-area" style="display:none;flex-direction:column;flex:1">
+      <div class="board-wrap">
+        <div class="bc-grid">
+          <div class="c-ranks" id="c-ranks"></div>
+          <div id="board"></div>
+          <div style="width:14px"></div>
+          <div class="c-files" id="c-files"></div>
+        </div>
+      </div>
+      <div class="pz-ctrl">
+        <div class="fbk info" id="feedback">Find the best move</div>
+        <button class="btn btn-g btn-sm" onclick="A.hint()">Hint</button>
+        <button class="btn btn-g btn-sm" onclick="A.skip()">Skip</button>
+        <button class="btn btn-g btn-sm" onclick="A.flipBoard()" title="Flip board">⇅</button>
       </div>
     </div>
-    <div class="puzzle-controls">
-      <div class="feedback-msg info" id="feedback-msg">Find the best move</div>
-      <button class="btn btn-ghost btn-sm" onclick="App.hint()">Hint</button>
-      <button class="btn btn-ghost btn-sm" onclick="App.skip()">Skip</button>
+
+    <!-- Error / empty state -->
+    <div class="empty" id="empty-state" style="display:none">
+      <div class="empty-ico">♟</div>
+      <p id="empty-msg">No puzzles found.</p>
     </div>
   </div>
 
   <!-- PROGRESS -->
-  <div id="progress-tab" class="tab-content">
-    <div class="prog-inner">
+  <div id="tb-progress" class="tab-body">
+    <div class="prog-body">
       <div class="stat-grid">
-        <div class="stat-card"><div class="stat-val" id="s-rating">1200</div><div class="stat-label">Rating</div></div>
-        <div class="stat-card"><div class="stat-val" id="s-solved">0</div><div class="stat-label">Solved</div></div>
-        <div class="stat-card"><div class="stat-val" id="s-streak">0 🔥</div><div class="stat-label">Day Streak</div></div>
-        <div class="stat-card"><div class="stat-val" id="s-acc">—</div><div class="stat-label">Accuracy</div></div>
+        <div class="stat-card"><div class="stat-v" id="s-rating">1200</div><div class="stat-l">Rating</div></div>
+        <div class="stat-card"><div class="stat-v" id="s-solved">0</div><div class="stat-l">Solved</div></div>
+        <div class="stat-card"><div class="stat-v" id="s-streak">0 🔥</div><div class="stat-l">Day Streak</div></div>
+        <div class="stat-card"><div class="stat-v" id="s-acc">—</div><div class="stat-l">Accuracy</div></div>
+      </div>
+      <div class="stat-card" style="text-align:left">
+        <div class="stat-l" style="margin-bottom:.3rem">Puzzle Pool</div>
+        <div class="stat-v" id="s-total" style="font-size:1.1rem;color:var(--cream)">0 puzzles loaded</div>
+        <div style="font-size:.75rem;color:var(--cream-d);margin-top:.2rem" id="s-files"></div>
       </div>
       <div>
-        <div class="section-title">Recent Activity</div>
-        <div class="history-list" id="hist-list"></div>
+        <div class="sec-title">Recent Activity</div>
+        <div class="hist" id="hist-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div id="tb-info" class="tab-body">
+    <div class="prog-body">
+      <div class="contribute">
+        <strong>📂 How to add puzzles</strong>
+        Puzzles live in the <code>/puzzles/</code> folder of the GitHub repo as PGN files. Add a new file and register it in <code>puzzles/index.json</code>.<br><br>
+        <strong>Required PGN headers per game:</strong><br>
+        <code>[SetupFen "..."]</code> — the starting position<br>
+        <code>[SetUp "1"]</code><br>
+        <code>[Solution "e2e4 d7d5"]</code> — UCI moves, space-separated<br>
+        <code>[Theme "Fork"]</code> — one of: Mate, Fork, Pin, Discovery, Endgame, Opening, Zugzwang<br>
+        <code>[Difficulty "medium"]</code> — easy / medium / hard<br>
+        <code>[PuzzleTitle "My Puzzle"]</code> — optional display name
+      </div>
+      <div class="contribute">
+        <strong>🔄 Workflow</strong>
+        1. Create or edit a <code>.pgn</code> file in <code>/puzzles/</code><br>
+        2. Add its filename to <code>puzzles/index.json</code><br>
+        3. Commit &amp; push — the app fetches fresh puzzles on each load<br><br>
+        <strong>💾 Your progress</strong>
+        Ratings, streaks, and spaced repetition data are saved locally in your browser. Each club member has their own independent progress.
+      </div>
+      <div style="text-align:center;padding:1rem">
+        <button class="btn btn-g btn-sm" onclick="A.logout()">← Switch User</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ADMIN -->
-<div id="admin-screen" class="screen">
-  <div id="admin-login-view">
-    <div class="admin-login-wrap">
-      <h2>Admin Login</h2>
-      <div>
-        <label>Password</label>
-        <input type="password" id="admin-pw" placeholder="Enter admin password">
-      </div>
-      <button class="btn btn-primary btn-full" onclick="App.adminLogin()">Login</button>
-      <button class="btn btn-ghost btn-full" onclick="App.showScreen('welcome')">← Back</button>
-      <p class="text-sm" style="text-align:center;margin-top:.5rem;opacity:.45">Default: <code>tactic1234</code></p>
-    </div>
-  </div>
-  <div id="admin-panel" style="display:none;flex-direction:column;height:100%">
-    <div class="admin-header">
-      <button class="btn btn-ghost btn-sm" onclick="App.exitAdmin()">← Back</button>
-      <h2>Admin Panel</h2>
-    </div>
-    <div class="admin-body">
-      <!-- ADD PUZZLE -->
-      <div class="card">
-        <div class="card-title">➕ Add Puzzle</div>
-        <label>Title</label>
-        <input type="text" id="pz-name" placeholder="e.g. Knight Fork #1">
-        <label>FEN <span style="opacity:.45;font-size:.72rem">(required)</span></label>
-        <input type="text" id="pz-fen" placeholder="paste FEN here…">
-        <label>Solution Moves <span style="opacity:.45;font-size:.72rem">UCI, space-separated e.g. e2e4 d7d5</span></label>
-        <input type="text" id="pz-moves" placeholder="e2e4 d7d5 e4d5">
-        <label>Side to Move</label>
-        <select id="pz-side"><option value="w">White</option><option value="b">Black</option></select>
-        <label>Difficulty</label>
-        <select id="pz-diff"><option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option></select>
-        <label>Themes</label>
-        <div class="theme-cbs" id="pz-themes">
-          <label class="tcb" data-t="Mate"><input type="checkbox">Mate</label>
-          <label class="tcb" data-t="Fork"><input type="checkbox">Fork</label>
-          <label class="tcb" data-t="Pin"><input type="checkbox">Pin & Skewer</label>
-          <label class="tcb" data-t="Discovery"><input type="checkbox">Discovery</label>
-          <label class="tcb" data-t="Endgame"><input type="checkbox">Endgame</label>
-          <label class="tcb" data-t="Opening"><input type="checkbox">Opening Trap</label>
-          <label class="tcb" data-t="Zugzwang"><input type="checkbox">Zugzwang</label>
-        </div>
-        <div class="flex-row mt">
-          <button class="btn btn-primary btn-sm" onclick="App.addPuzzle()">Add Puzzle</button>
-          <button class="btn btn-ghost btn-sm" onclick="App.loadSamples()">Load Samples</button>
-        </div>
-      </div>
-      <!-- PUZZLE LIBRARY -->
-      <div class="card">
-        <div class="card-title">📚 Puzzle Library (<span id="pz-count">0</span>)</div>
-        <div class="pz-list" id="admin-pz-list"></div>
-      </div>
-      <!-- USERS -->
-      <div class="card">
-        <div class="card-title">👥 Club Members (<span id="user-count">0</span>)</div>
-        <div class="user-list" id="admin-user-list"></div>
-      </div>
-      <!-- SETTINGS -->
-      <div class="card">
-        <div class="card-title">⚙️ Settings</div>
-        <label>Change Admin Password</label>
-        <div class="flex-row">
-          <input type="password" id="new-pw" placeholder="New password">
-          <button class="btn btn-ghost btn-sm" onclick="App.changePw()">Save</button>
-        </div>
-        <div class="mt">
-          <button class="btn btn-danger btn-sm" onclick="App.resetAll()">Reset All Data</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SOLUTION MODAL -->
-<div class="modal-overlay" id="modal">
+<!-- SOLVED MODAL -->
+<div class="overlay" id="modal">
   <div class="modal">
     <h3 id="modal-title">Puzzle Solved!</h3>
-    <p id="modal-body">You found the winning combination.</p>
+    <p id="modal-body"></p>
     <div class="modal-btns">
-      <button class="btn btn-primary" onclick="App.next()">Next Puzzle →</button>
-      <button class="btn btn-ghost btn-sm" onclick="App.closeModal()">Review</button>
+      <button class="btn btn-p" onclick="A.next()">Next →</button>
+      <button class="btn btn-g btn-sm" onclick="A.closeModal()">Review</button>
     </div>
   </div>
 </div>
 
 <div id="toast"></div>
-<div id="drag-ghost" class="drag-ghost"></div>
+<div id="ghost" class="ghost"></div>
 
 <script>
-// ═══════════════════════════════════════════
-// CHESS ENGINE
-// ═══════════════════════════════════════════
-const GLYPH={'K':'♔','Q':'♕','R':'♖','B':'♗','N':'♘','P':'♙','k':'♚','q':'♛','r':'♜','b':'♝','n':'♞','p':'♟'};
-const FILES='abcdefgh';
-const isW=p=>p&&p===p.toUpperCase();
-const isB=p=>p&&p===p.toLowerCase();
-const inB=(f,r)=>f>=0&&f<8&&r>=1&&r<=8;
-const SQ=(fi,ri)=>FILES[fi]+ri;
+'use strict';
 
-function parseFen(fen){
-  const[pos,turn,cast,ep]=fen.trim().split(' ');
-  const board={};
-  pos.split('/').forEach((row,ri)=>{
-    let fi=0;
-    for(const ch of row){
-      if(/\d/.test(ch))fi+=+ch;
-      else{board[FILES[fi]+(8-ri)]=ch;fi++;}
+// ════════════════════════════════════════════════════
+// CONFIG — update REPO_RAW to your GitHub raw base URL
+// ════════════════════════════════════════════════════
+const REPO_RAW = 'puzzles'; // relative path — works on GitHub Pages from same repo
+// If hosting elsewhere, set to e.g.:
+// const REPO_RAW = 'https://raw.githubusercontent.com/YOUR_USER/YOUR_REPO/main';
+
+// ════════════════════════════════════════════════════
+// PGN PARSER
+// ════════════════════════════════════════════════════
+function parsePGN(text) {
+  const puzzles = [];
+  // Split on double-newline before a new [Event tag
+  const games = text.split(/\n(?=\[Event\s)/);
+  for (const game of games) {
+    if (!game.trim()) continue;
+    const headers = {};
+    const headerRe = /\[(\w+)\s+"([^"]*)"\]/g;
+    let m;
+    while ((m = headerRe.exec(game)) !== null) {
+      headers[m[1]] = m[2];
     }
-  });
-  return{board,turn:turn||'w',castling:cast||'-',ep:ep||'-'};
+    const fen = headers.SetupFen || headers.FEN;
+    const solution = headers.Solution;
+    if (!fen || !solution) continue; // skip games without required headers
+    const moves = solution.trim().split(/\s+/).filter(Boolean);
+    if (!moves.length) continue;
+
+    // Determine side to move from FEN
+    const fenParts = fen.split(' ');
+    const side = fenParts[1] || 'w';
+
+    puzzles.push({
+      id: `${headers.White||'?'}-${headers.Black||'?'}-${fen.slice(0,12)}`,
+      title: headers.PuzzleTitle || headers.White || 'Puzzle',
+      fen,
+      moves,
+      side,
+      theme: headers.Theme || 'Tactics',
+      difficulty: (headers.Difficulty || 'medium').toLowerCase(),
+      source: headers.Event || '',
+    });
+  }
+  return puzzles;
 }
 
-function applyMove(st,{from,to,promo}){
-  const s={board:{...st.board},turn:st.turn,castling:st.castling,ep:st.ep};
-  const piece=s.board[from];if(!piece)return s;
+// ════════════════════════════════════════════════════
+// CHESS ENGINE
+// ════════════════════════════════════════════════════
+const GLYPH = {'K':'♔','Q':'♕','R':'♖','B':'♗','N':'♘','P':'♙','k':'♚','q':'♛','r':'♜','b':'♝','n':'♞','p':'♟'};
+const FILES = 'abcdefgh';
+const isW = p => p && p === p.toUpperCase() && p !== p.toLowerCase();
+const isB = p => p && p === p.toLowerCase() && p !== p.toUpperCase();
+const inB = (f,r) => f >= 0 && f < 8 && r >= 1 && r <= 8;
+
+function parseFen(fen) {
+  const [pos, turn, cast, ep] = fen.trim().split(' ');
+  const board = {};
+  pos.split('/').forEach((row, ri) => {
+    let fi = 0;
+    for (const ch of row) {
+      if (/\d/.test(ch)) fi += +ch;
+      else { board[FILES[fi] + (8 - ri)] = ch; fi++; }
+    }
+  });
+  return { board, turn: turn || 'w', castling: cast || '-', ep: ep || '-' };
+}
+
+function applyMove(st, { from, to, promo }) {
+  const s = { board: { ...st.board }, turn: st.turn, castling: st.castling, ep: st.ep };
+  const piece = s.board[from];
+  if (!piece) return s;
   // En passant capture
-  if(piece.toLowerCase()==='p'&&to===s.ep){
-    const epr=st.turn==='w'?+to[1]-1:+to[1]+1;
-    delete s.board[to[0]+epr];
+  if (piece.toLowerCase() === 'p' && to === s.ep) {
+    const epr = st.turn === 'w' ? +to[1] - 1 : +to[1] + 1;
+    delete s.board[to[0] + epr];
   }
-  // Castling moves
-  if(piece==='K'){
-    if(from==='e1'&&to==='g1'){s.board.f1='R';delete s.board.h1;}
-    if(from==='e1'&&to==='c1'){s.board.d1='R';delete s.board.a1;}
-    s.castling=s.castling.replace('K','').replace('Q','');
+  // Castling rook moves
+  const castleMoves = {K:{from:'e1',to:'g1',rf:'h1',rt:'f1'},Q:{from:'e1',to:'c1',rf:'a1',rt:'d1'},k:{from:'e8',to:'g8',rf:'h8',rt:'f8'},q:{from:'e8',to:'c8',rf:'a8',rt:'d8'}};
+  for (const [type, cm] of Object.entries(castleMoves)) {
+    if (from === cm.from && to === cm.to && s.board[from] === (isW(piece) ? 'K' : 'k')) {
+      s.board[cm.rt] = s.board[cm.rf]; delete s.board[cm.rf]; break;
+    }
   }
-  if(piece==='k'){
-    if(from==='e8'&&to==='g8'){s.board.f8='r';delete s.board.h8;}
-    if(from==='e8'&&to==='c8'){s.board.d8='r';delete s.board.a8;}
-    s.castling=s.castling.replace('k','').replace('q','');
+  // Update castling rights
+  const castleUpdates = {e1:['K','Q'],e8:['k','q'],a1:['Q'],h1:['K'],a8:['q'],h8:['k']};
+  for (const sq of [from, to]) {
+    (castleUpdates[sq] || []).forEach(c => { s.castling = s.castling.replace(c, ''); });
   }
-  if(['a1'].includes(from)||to==='a1')s.castling=s.castling.replace('Q','');
-  if(['h1'].includes(from)||to==='h1')s.castling=s.castling.replace('K','');
-  if(['a8'].includes(from)||to==='a8')s.castling=s.castling.replace('q','');
-  if(['h8'].includes(from)||to==='h8')s.castling=s.castling.replace('k','');
-  // EP flag
-  if(piece.toLowerCase()==='p'&&Math.abs(+to[1]-+from[1])===2){
-    s.ep=from[0]+(st.turn==='w'?+from[1]+1:+from[1]-1);
-  }else s.ep='-';
-  s.board[to]=promo?(st.turn==='w'?promo.toUpperCase():promo.toLowerCase()):piece;
+  if (!s.castling) s.castling = '-';
+  // En passant flag
+  if (piece.toLowerCase() === 'p' && Math.abs(+to[1] - +from[1]) === 2)
+    s.ep = from[0] + (st.turn === 'w' ? +from[1] + 1 : +from[1] - 1);
+  else s.ep = '-';
+  s.board[to] = promo ? (st.turn === 'w' ? promo.toUpperCase() : promo.toLowerCase()) : piece;
   delete s.board[from];
-  s.turn=st.turn==='w'?'b':'w';
-  if(!s.castling)s.castling='-';
+  s.turn = st.turn === 'w' ? 'b' : 'w';
   return s;
 }
 
-function isAttacked(st,sq,byColor){
-  const b=st.board;const fi=FILES.indexOf(sq[0]),ri=+sq[1];
-  const enemy=byColor;
-  const pawn=enemy==='w'?'P':'p';const pDir=enemy==='w'?-1:1;
-  for(const df of[-1,1]){const f2=fi+df,r2=ri+pDir;if(inB(f2,r2)&&b[FILES[f2]+r2]===pawn)return true;}
-  const knight=enemy==='w'?'N':'n';
-  for(const[df,dr]of[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]){
-    const f2=fi+df,r2=ri+dr;if(inB(f2,r2)&&b[FILES[f2]+r2]===knight)return true;
+function isAttacked(st, sq, byColor) {
+  const b = st.board, fi = FILES.indexOf(sq[0]), ri = +sq[1];
+  const pawn = byColor === 'w' ? 'P' : 'p';
+  const pDir = byColor === 'w' ? -1 : 1;
+  for (const df of [-1, 1]) { const f2 = fi + df, r2 = ri + pDir; if (inB(f2, r2) && b[FILES[f2] + r2] === pawn) return true; }
+  const knight = byColor === 'w' ? 'N' : 'n';
+  for (const [df, dr] of [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]) {
+    const f2 = fi+df, r2 = ri+dr; if (inB(f2,r2) && b[FILES[f2]+r2] === knight) return true;
   }
-  const rook=enemy==='w'?'R':'r',queen=enemy==='w'?'Q':'q';
-  for(const[df,dr]of[[1,0],[-1,0],[0,1],[0,-1]]){
-    let f2=fi+df,r2=ri+dr;
-    while(inB(f2,r2)){const p=b[FILES[f2]+r2];if(p){if(p===rook||p===queen)return true;break;}f2+=df;r2+=dr;}
+  const rook = byColor === 'w' ? 'R' : 'r', queen = byColor === 'w' ? 'Q' : 'q';
+  for (const [df,dr] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+    let f2=fi+df, r2=ri+dr;
+    while (inB(f2,r2)) { const p=b[FILES[f2]+r2]; if (p) { if (p===rook||p===queen) return true; break; } f2+=df; r2+=dr; }
   }
-  const bishop=enemy==='w'?'B':'b';
-  for(const[df,dr]of[[1,1],[1,-1],[-1,1],[-1,-1]]){
-    let f2=fi+df,r2=ri+dr;
-    while(inB(f2,r2)){const p=b[FILES[f2]+r2];if(p){if(p===bishop||p===queen)return true;break;}f2+=df;r2+=dr;}
+  const bishop = byColor === 'w' ? 'B' : 'b';
+  for (const [df,dr] of [[1,1],[1,-1],[-1,1],[-1,-1]]) {
+    let f2=fi+df, r2=ri+dr;
+    while (inB(f2,r2)) { const p=b[FILES[f2]+r2]; if (p) { if (p===bishop||p===queen) return true; break; } f2+=df; r2+=dr; }
   }
-  const king=enemy==='w'?'K':'k';
-  for(const[df,dr]of[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
-    const f2=fi+df,r2=ri+dr;if(inB(f2,r2)&&b[FILES[f2]+r2]===king)return true;
+  const king = byColor === 'w' ? 'K' : 'k';
+  for (const [df,dr] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]) {
+    const f2=fi+df, r2=ri+dr; if (inB(f2,r2) && b[FILES[f2]+r2] === king) return true;
   }
   return false;
 }
 
-function inCheck(st,color){
-  const king=color==='w'?'K':'k';
-  let ksq=null;for(const s in st.board)if(st.board[s]===king){ksq=s;break;}
-  if(!ksq)return false;
-  return isAttacked(st,ksq,color==='w'?'b':'w');
+function inCheck(st, color) {
+  const king = color === 'w' ? 'K' : 'k';
+  for (const sq in st.board) if (st.board[sq] === king) return isAttacked(st, sq, color === 'w' ? 'b' : 'w');
+  return false;
 }
 
-function pseudoMoves(st,fromSq,piece,color){
-  const b=st.board,fi=FILES.indexOf(fromSq[0]),ri=+fromSq[1];
-  const moves=[];
-  const friendly=color==='w'?isW:isB,enemy=color==='w'?isB:isW;
-  const slide=dirs=>{for(const[df,dr]of dirs){let f2=fi+df,r2=ri+dr;while(inB(f2,r2)){const t=b[FILES[f2]+r2];if(t){if(enemy(t))moves.push(FILES[f2]+r2);break;}moves.push(FILES[f2]+r2);f2+=df;r2+=dr;}}};
-  const pt=piece.toLowerCase();
-  if(pt==='p'){
-    const dir=color==='w'?1:-1,start=color==='w'?2:7;
-    if(inB(fi,ri+dir)&&!b[FILES[fi]+(ri+dir)]){moves.push(FILES[fi]+(ri+dir));if(ri===start&&!b[FILES[fi]+(ri+2*dir)])moves.push(FILES[fi]+(ri+2*dir));}
-    for(const df of[-1,1]){if(!inB(fi+df,ri+dir))continue;const ts=FILES[fi+df]+(ri+dir);if(enemy(b[ts])||ts===st.ep)moves.push(ts);}
+function pseudoMoves(st, from, piece, color) {
+  const b = st.board, fi = FILES.indexOf(from[0]), ri = +from[1];
+  const moves = [];
+  const friendly = color === 'w' ? isW : isB, enemy = color === 'w' ? isB : isW;
+  const slide = dirs => { for (const [df,dr] of dirs) { let f2=fi+df,r2=ri+dr; while(inB(f2,r2)){const t=b[FILES[f2]+r2];if(t){if(enemy(t))moves.push(FILES[f2]+r2);break;}moves.push(FILES[f2]+r2);f2+=df;r2+=dr;}}};
+  const pt = piece.toLowerCase();
+  if (pt === 'p') {
+    const dir = color==='w'?1:-1, start = color==='w'?2:7;
+    if (inB(fi,ri+dir)&&!b[FILES[fi]+(ri+dir)]) { moves.push(FILES[fi]+(ri+dir)); if(ri===start&&!b[FILES[fi]+(ri+2*dir)])moves.push(FILES[fi]+(ri+2*dir)); }
+    for (const df of [-1,1]) { if(!inB(fi+df,ri+dir))continue; const ts=FILES[fi+df]+(ri+dir); if(enemy(b[ts])||ts===st.ep)moves.push(ts); }
   }
-  if(pt==='n'){for(const[df,dr]of[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]){const f2=fi+df,r2=ri+dr;if(inB(f2,r2)&&!friendly(b[FILES[f2]+r2]))moves.push(FILES[f2]+r2);}}
-  if(pt==='b')slide([[1,1],[1,-1],[-1,1],[-1,-1]]);
-  if(pt==='r')slide([[1,0],[-1,0],[0,1],[0,-1]]);
-  if(pt==='q')slide([[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]);
-  if(pt==='k'){
-    for(const[df,dr]of[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){const f2=fi+df,r2=ri+dr;if(inB(f2,r2)&&!friendly(b[FILES[f2]+r2]))moves.push(FILES[f2]+r2);}
-    if(color==='w'&&fromSq==='e1'){
+  if (pt === 'n') for (const [df,dr] of [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]) { const f2=fi+df,r2=ri+dr; if(inB(f2,r2)&&!friendly(b[FILES[f2]+r2]))moves.push(FILES[f2]+r2); }
+  if (pt === 'b') slide([[1,1],[1,-1],[-1,1],[-1,-1]]);
+  if (pt === 'r') slide([[1,0],[-1,0],[0,1],[0,-1]]);
+  if (pt === 'q') slide([[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]);
+  if (pt === 'k') {
+    for (const [df,dr] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]) { const f2=fi+df,r2=ri+dr; if(inB(f2,r2)&&!friendly(b[FILES[f2]+r2]))moves.push(FILES[f2]+r2); }
+    if (color==='w'&&from==='e1') {
       if(st.castling.includes('K')&&!b.f1&&!b.g1&&!isAttacked(st,'e1','b')&&!isAttacked(st,'f1','b')&&!isAttacked(st,'g1','b'))moves.push('g1');
       if(st.castling.includes('Q')&&!b.d1&&!b.c1&&!b.b1&&!isAttacked(st,'e1','b')&&!isAttacked(st,'d1','b')&&!isAttacked(st,'c1','b'))moves.push('c1');
     }
-    if(color==='b'&&fromSq==='e8'){
+    if (color==='b'&&from==='e8') {
       if(st.castling.includes('k')&&!b.f8&&!b.g8&&!isAttacked(st,'e8','w')&&!isAttacked(st,'f8','w')&&!isAttacked(st,'g8','w'))moves.push('g8');
       if(st.castling.includes('q')&&!b.d8&&!b.c8&&!b.b8&&!isAttacked(st,'e8','w')&&!isAttacked(st,'d8','w')&&!isAttacked(st,'c8','w'))moves.push('c8');
     }
@@ -455,350 +456,404 @@ function pseudoMoves(st,fromSq,piece,color){
   return moves;
 }
 
-function legalMoves(st,fromSq){
-  const piece=st.board[fromSq];if(!piece)return[];
-  const color=isW(piece)?'w':'b';
-  return pseudoMoves(st,fromSq,piece,color).filter(to=>{
-    const ns=applyMove(st,{from:fromSq,to,promo:null});
-    return!inCheck({board:ns.board},color);
-  });
+function legalMoves(st, from) {
+  const piece = st.board[from]; if (!piece) return [];
+  const color = isW(piece) ? 'w' : 'b';
+  return pseudoMoves(st, from, piece, color).filter(to => !inCheck(applyMove(st, {from, to, promo:null}), color));
 }
 
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════
 // ELO + SPACED REPETITION
-// ═══════════════════════════════════════════
-function eloUpdate(ra,rb,score,k=32){return Math.round(ra+k*(score-1/(1+Math.pow(10,(rb-ra)/400))));}
-function srSchedule(rec,ok){
-  const now=Date.now();
-  if(!rec)rec={interval:1,ease:2.5,due:now,reps:0};
-  if(ok){rec.reps++;rec.interval=rec.reps===1?1:rec.reps===2?6:Math.round(rec.interval*rec.ease);rec.ease=Math.max(1.3,rec.ease+0.1);}
-  else{rec.reps=0;rec.interval=1;rec.ease=Math.max(1.3,rec.ease-0.2);}
-  rec.due=now+rec.interval*86400000;return rec;
+// ════════════════════════════════════════════════════
+function eloUpdate(ra, rb, score, k=32) { return Math.round(ra + k * (score - 1/(1+Math.pow(10,(rb-ra)/400)))); }
+function srSchedule(rec, ok) {
+  const now = Date.now();
+  if (!rec) rec = {interval:1, ease:2.5, due:now, reps:0};
+  if (ok) { rec.reps++; rec.interval = rec.reps===1?1:rec.reps===2?6:Math.round(rec.interval*rec.ease); rec.ease = Math.max(1.3, rec.ease+0.1); }
+  else { rec.reps=0; rec.interval=1; rec.ease = Math.max(1.3, rec.ease-0.2); }
+  rec.due = now + rec.interval * 86400000;
+  return rec;
 }
 
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════
 // DB
-// ═══════════════════════════════════════════
-const DB={
-  get(k,d=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch{return d;}},
-  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}},
+// ════════════════════════════════════════════════════
+const DB = {
+  get: (k,d=null) => { try { const v=localStorage.getItem(k); return v!==null?JSON.parse(v):d; } catch { return d; } },
+  set: (k,v) => { try { localStorage.setItem(k,JSON.stringify(v)); } catch {} }
 };
 
-// ═══════════════════════════════════════════
+// ════════════════════════════════════════════════════
 // APP
-// ═══════════════════════════════════════════
-const App=(()=>{
-  let user=null,puzzles=[],cur=null,state=null;
-  let solMoves=[],solIdx=0,solved=false;
-  let selSq=null,legalTgts=[],lastMove=null,flipped=false;
-  let wrongCount=0,themeFilter='all';
-  let dragFrom=null,dragPiece=null;
+// ════════════════════════════════════════════════════
+const A = (() => {
+  let user = null;
+  let allPuzzles = []; // loaded from PGN files
+  let loadedFiles = [];
+  let cur = null, state = null;
+  let solMoves = [], solIdx = 0, isDone = false;
+  let selSq = null, legalTgts = [], lastMove = null;
+  let flipped = false, themeFilter = 'all';
+  let dragFrom = null, dragPiece = null;
 
-  function init(){
-    puzzles=DB.get('puzzles',[]);
-    // Theme checkbox toggles
-    document.querySelectorAll('#pz-themes .tcb').forEach(el=>{
-      el.addEventListener('click',()=>{el.classList.toggle('on');el.querySelector('input').checked=el.classList.contains('on');});
-    });
-    if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-    const saved=DB.get('currentUser');
-    if(saved){user=saved;enterApp();}else showScreen('welcome');
+  // ── INIT ──
+  async function init() {
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+    const saved = DB.get('currentUser');
+    if (saved) { user = saved; await enterApp(); }
+    else showScreen('welcome');
   }
 
-  function showScreen(name){
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    document.getElementById(name+'-screen').classList.add('active');
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('s-' + id).classList.add('active');
   }
 
-  function login(){
-    const nick=document.getElementById('nickname-input').value.trim();
-    if(!nick){toast('Enter a nickname');return;}
-    const users=DB.get('users',{});
-    if(!users[nick])users[nick]={nick,rating:1200,solved:0,failed:0,streak:0,lastDay:null,history:[],sr:{}};
-    DB.set('users',users);user=users[nick];DB.set('currentUser',user);enterApp();
+  async function login() {
+    const nick = document.getElementById('nick-input').value.trim();
+    if (!nick) { toast('Enter a nickname'); return; }
+    const users = DB.get('users', {});
+    if (!users[nick]) users[nick] = { nick, rating:1200, solved:0, failed:0, streak:0, lastDay:null, history:[], sr:{} };
+    DB.set('users', users);
+    user = users[nick];
+    DB.set('currentUser', user);
+    await enterApp();
   }
 
-  function enterApp(){showScreen('app');renderHeader();loadNextPuzzle();}
-
-  function renderHeader(){
-    document.getElementById('user-rating').textContent=user.rating;
-    document.getElementById('user-avatar').textContent=user.nick[0].toUpperCase();
-    document.getElementById('streak-count').textContent=user.streak;
-    document.getElementById('s-rating').textContent=user.rating;
-    document.getElementById('s-solved').textContent=user.solved;
-    document.getElementById('s-streak').textContent=user.streak+' 🔥';
-    const tot=user.solved+user.failed;
-    document.getElementById('s-acc').textContent=tot?Math.round(user.solved/tot*100)+'%':'—';
-  }
-
-  function renderProgress(){
+  async function enterApp() {
+    showScreen('app');
     renderHeader();
-    const hist=user.history||[];
-    const el=document.getElementById('hist-list');
-    if(!hist.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><p>No puzzles solved yet</p></div>';return;}
-    el.innerHTML=[...hist].reverse().slice(0,25).map(h=>`
-      <div class="history-item"><span>${h.name||'Puzzle'}</span>
-      <span class="${h.success?'hr-ok':'hr-fail'}">${h.success?'✓ Solved':'✗ Skipped'}</span></div>`).join('');
+    await loadPuzzles();
   }
 
-  // ADMIN
-  function showAdminLogin(){showScreen('admin');document.getElementById('admin-login-view').style.display='';document.getElementById('admin-panel').style.display='none';}
-  function adminLogin(){
-    const pw=document.getElementById('admin-pw').value;
-    if(pw===DB.get('adminPw','tactic1234')){
-      document.getElementById('admin-login-view').style.display='none';
-      document.getElementById('admin-panel').style.display='flex';
-      renderAdminPuzzles();renderAdminUsers();
-    }else toast('Wrong password');
-  }
-  function exitAdmin(){document.getElementById('admin-pw').value='';if(user)showScreen('app');else showScreen('welcome');}
-  function changePw(){const v=document.getElementById('new-pw').value.trim();if(!v){toast('Enter a password');return;}DB.set('adminPw',v);document.getElementById('new-pw').value='';toast('Password updated');}
-  function resetAll(){if(!confirm('Delete ALL data?'))return;localStorage.clear();location.reload();}
-
-  function addPuzzle(){
-    const name=document.getElementById('pz-name').value.trim();
-    const fen=document.getElementById('pz-fen').value.trim();
-    const movesRaw=document.getElementById('pz-moves').value.trim();
-    const side=document.getElementById('pz-side').value;
-    const diff=document.getElementById('pz-diff').value;
-    const themes=[...document.querySelectorAll('#pz-themes .tcb.on')].map(el=>el.dataset.t);
-    if(!fen||!movesRaw){toast('FEN and moves are required');return;}
-    try{parseFen(fen);}catch(e){toast('Invalid FEN');return;}
-    const moves=movesRaw.split(/\s+/).filter(Boolean);
-    if(!moves.length){toast('Enter at least one move');return;}
-    puzzles.push({id:Date.now()+'',name:name||'Puzzle '+(puzzles.length+1),fen,moves,side,diff,themes,created:Date.now()});
-    DB.set('puzzles',puzzles);
-    ['pz-name','pz-fen','pz-moves'].forEach(id=>document.getElementById(id).value='');
-    document.querySelectorAll('#pz-themes .tcb.on').forEach(el=>{el.classList.remove('on');el.querySelector('input').checked=false;});
-    renderAdminPuzzles();toast('Puzzle added!');
+  function logout() {
+    DB.set('currentUser', null);
+    user = null;
+    showScreen('welcome');
   }
 
-  function deletePuzzle(id){puzzles=puzzles.filter(p=>p.id!==id);DB.set('puzzles',puzzles);renderAdminPuzzles();toast('Deleted');}
+  // ── LOAD PUZZLES FROM REPO ──
+  async function loadPuzzles() {
+    showLoading(true);
+    try {
+      // 1. Fetch the index file
+      const idxResp = await fetch(`${REPO_RAW}/index.json`, { cache: 'no-cache' });
+      if (!idxResp.ok) throw new Error(`Cannot load puzzles/index.json (${idxResp.status})`);
+      const idx = await idxResp.json();
+      const files = idx.files || [];
+      if (!files.length) throw new Error('puzzles/index.json lists no files');
 
-  function renderAdminPuzzles(){
-    document.getElementById('pz-count').textContent=puzzles.length;
-    const el=document.getElementById('admin-pz-list');
-    if(!puzzles.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">♟</div><p>No puzzles yet</p></div>';return;}
-    el.innerHTML=puzzles.map(p=>`<div class="pz-item">
-      <div class="pz-left"><div class="pz-name">${p.name}</div><div class="pz-meta">${p.diff} · ${(p.themes||[]).join(', ')||'—'} · ${p.moves.length} move(s)</div></div>
-      <button class="btn btn-danger btn-sm" onclick="App.deletePuzzle('${p.id}')">✕</button></div>`).join('');
+      // 2. Fetch each PGN file
+      allPuzzles = [];
+      loadedFiles = [];
+      const results = await Promise.allSettled(files.map(f => fetch(`${REPO_RAW}/${f}`, { cache: 'no-cache' })));
+      for (let i = 0; i < results.length; i++) {
+        const res = results[i];
+        if (res.status === 'rejected' || !res.value.ok) {
+          console.warn(`Failed to fetch ${files[i]}`);
+          continue;
+        }
+        const text = await res.value.text();
+        const parsed = parsePGN(text);
+        allPuzzles.push(...parsed);
+        loadedFiles.push(`${files[i]} (${parsed.length})`);
+      }
+
+      if (!allPuzzles.length) throw new Error('No valid puzzles found in PGN files. Check that your PGN includes [SetupFen], [Solution], and [SetUp "1"] headers.');
+
+      showLoading(false);
+      showBoard(true);
+      updatePoolStats();
+      loadNextPuzzle();
+    } catch (err) {
+      showLoading(false);
+      showEmpty(err.message);
+    }
   }
 
-  function renderAdminUsers(){
-    const users=DB.get('users',{});const names=Object.keys(users);
-    document.getElementById('user-count').textContent=names.length;
-    const el=document.getElementById('admin-user-list');
-    if(!names.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">👤</div><p>No members yet</p></div>';return;}
-    el.innerHTML=names.map(n=>{const u=users[n];return`<div class="user-item"><span class="user-name">${u.nick}</span><span class="user-stats">⭐${u.rating} · ✓${u.solved} · 🔥${u.streak}</span></div>`;}).join('');
+  function showLoading(on) {
+    document.getElementById('loading-state').style.display = on ? 'flex' : 'none';
+    document.getElementById('board-area').style.display = on ? 'none' : 'flex';
+    document.getElementById('empty-state').style.display = 'none';
   }
 
-  function loadSamples(){
-    const s=[
-      {id:'s1',name:'Back Rank Mate',fen:'6k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1',moves:['d1d8'],side:'w',diff:'easy',themes:['Mate'],created:Date.now()},
-      {id:'s2',name:'Rook to 7th',fen:'r4rk1/ppp2ppp/2n5/3pp3/8/2NP4/PPP2PPP/R3R1K1 w - - 0 1',moves:['e1e7'],side:'w',diff:'medium',themes:['Endgame'],created:Date.now()-1},
-      {id:'s3',name:'Queen Fork',fen:'r1b1k2r/pppp1ppp/2n2n2/4p3/2B1P3/3P4/PPP2PPP/RNBQK1NR w KQkq - 0 1',moves:['d1h5','f6h5','c4f7'],side:'w',diff:'medium',themes:['Fork','Mate'],created:Date.now()-2},
-      {id:'s4',name:'Knight Fork Tactic',fen:'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/2N2N2/PPPP1PPP/R1BQKB1R w KQkq - 4 4',moves:['f3e5','c6e5','d1f3'],side:'w',diff:'medium',themes:['Fork'],created:Date.now()-3},
-      {id:'s5',name:'Smothered King',fen:'5rk1/5ppp/8/8/8/8/5PPP/5RK1 w - - 0 1',moves:['f1f8'],side:'w',diff:'easy',themes:['Mate'],created:Date.now()-4},
-    ];
-    const ids=new Set(puzzles.map(p=>p.id));
-    s.forEach(p=>{if(!ids.has(p.id))puzzles.push(p);});
-    DB.set('puzzles',puzzles);renderAdminPuzzles();toast('Samples loaded!');
+  function showBoard(on) {
+    document.getElementById('board-area').style.display = on ? 'flex' : 'none';
+    document.getElementById('empty-state').style.display = 'none';
   }
 
-  // PUZZLE ENGINE
-  function eligible(){
-    const now=Date.now();const sr=user.sr||{};
-    let pool=puzzles.filter(p=>{
-      if(themeFilter!=='all'&&!(p.themes||[]).includes(themeFilter))return false;
-      const rec=sr[p.id];if(!rec)return true;
-      return rec.due<=now+3600000;
+  function showEmpty(msg) {
+    document.getElementById('empty-state').style.display = '';
+    document.getElementById('empty-msg').innerHTML = msg.replace(/`([^`]+)`/g, '<code>$1</code>');
+    document.getElementById('board-area').style.display = 'none';
+  }
+
+  function updatePoolStats() {
+    document.getElementById('s-total').textContent = `${allPuzzles.length} puzzle${allPuzzles.length!==1?'s':''} loaded`;
+    document.getElementById('s-files').textContent = loadedFiles.join(' · ');
+  }
+
+  // ── PUZZLE SELECTION (SR + theme filter) ──
+  function eligible() {
+    const now = Date.now();
+    const sr = user.sr || {};
+    let pool = allPuzzles.filter(p => {
+      if (themeFilter !== 'all' && p.theme !== themeFilter) return false;
+      const rec = sr[p.id];
+      if (!rec) return true; // never seen
+      return rec.due <= now + 3600000;
     });
-    if(!pool.length)pool=puzzles.filter(p=>themeFilter==='all'||(p.themes||[]).includes(themeFilter));
-    pool.sort((a,b)=>(user.sr[a.id]?.due||0)-(user.sr[b.id]?.due||0));
+    // Fallback: if everything is reviewed, show all in theme
+    if (!pool.length) pool = allPuzzles.filter(p => themeFilter === 'all' || p.theme === themeFilter);
+    if (!pool.length) pool = [...allPuzzles];
+    // Sort: most overdue first
+    pool.sort((a, b) => (sr[a.id]?.due || 0) - (sr[b.id]?.due || 0));
     return pool;
   }
 
-  function loadNextPuzzle(){
-    puzzles=DB.get('puzzles',[]);
-    const pool=eligible();
-    if(!pool.length){emptyPuzzle();return;}
-    const p=pool.find(px=>!cur||px.id!==cur.id)||pool[0];
+  function loadNextPuzzle() {
+    const pool = eligible();
+    if (!pool.length) { showEmpty('No puzzles match this filter.'); return; }
+    const p = pool.find(px => !cur || px.id !== cur.id) || pool[0];
     loadPuzzle(p);
   }
 
-  function emptyPuzzle(){
-    cur=null;state=null;
-    document.getElementById('puzzle-prompt').innerHTML='<strong>No puzzles available</strong>';
-    document.getElementById('meta-theme').textContent='—';
-    document.getElementById('meta-name').textContent='';
-    document.getElementById('board').innerHTML='';
-    feedback('Ask your admin to add puzzles!','info');
-  }
+  function loadPuzzle(p) {
+    cur = p; solMoves = [...p.moves]; solIdx = 0; isDone = false;
+    selSq = null; legalTgts = []; lastMove = null; flipped = p.side === 'b';
+    state = parseFen(p.fen);
 
-  function loadPuzzle(p){
-    cur=p;solMoves=[...p.moves];solIdx=0;wrongCount=0;solved=false;
-    selSq=null;legalTgts=[];lastMove=null;flipped=p.side==='b';
-    state=parseFen(p.fen);
-    document.getElementById('meta-theme').textContent=(p.themes||['—']).join(', ');
-    const db=document.getElementById('meta-diff');db.textContent=p.diff||'medium';db.className='difficulty-badge diff-'+(p.diff||'medium');
-    document.getElementById('meta-name').textContent=p.name;
-    document.getElementById('puzzle-prompt').innerHTML=`<strong>${p.side==='w'?'White':'Black'}</strong> to move`;
+    document.getElementById('m-theme').textContent = p.theme || '—';
+    const db = document.getElementById('m-diff'); db.textContent = p.difficulty; db.className = 'dbadge d-' + p.difficulty;
+    document.getElementById('m-title').textContent = p.title || '';
+    document.getElementById('pz-prompt').innerHTML = `<strong>${p.side === 'w' ? 'White' : 'Black'}</strong> to move`;
     document.getElementById('modal').classList.remove('open');
-    renderBoard();feedback('Find the best move','info');
+
+    showBoard(true);
+    renderBoard();
+    setFeedback('Find the best move', 'info');
   }
 
-  // BOARD
-  function renderBoard(){
-    const board=document.getElementById('board');board.innerHTML='';
-    const ranks=flipped?[1,2,3,4,5,6,7,8]:[8,7,6,5,4,3,2,1];
-    const files=flipped?['h','g','f','e','d','c','b','a']:['a','b','c','d','e','f','g','h'];
-    document.getElementById('coord-ranks').innerHTML=ranks.map(r=>`<div class="coord-cell" style="flex:1">${r}</div>`).join('');
-    document.getElementById('coord-files').innerHTML=files.map(f=>`<div class="coord-cell" style="flex:1">${f}</div>`).join('');
-    for(const rank of ranks){for(const file of files){
-      const sqn=file+rank,isLight=(FILES.indexOf(file)+rank)%2===0;
-      const div=document.createElement('div');
-      div.className='sq '+(isLight?'light':'dark');
-      div.dataset.sq=sqn;
-      if(lastMove&&(sqn===lastMove.from||sqn===lastMove.to))div.classList.add('lm');
-      if(selSq===sqn)div.classList.add('sel');
-      if(legalTgts.includes(sqn)){
-        const hasPiece=!!state.board[sqn];
-        const marker=document.createElement('div');marker.className=hasPiece?'cap-ring':'dot';div.appendChild(marker);
+  // ── BOARD RENDER ──
+  function renderBoard() {
+    const el = document.getElementById('board');
+    el.innerHTML = '';
+    const ranks = flipped ? [1,2,3,4,5,6,7,8] : [8,7,6,5,4,3,2,1];
+    const files = flipped ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
+
+    document.getElementById('c-ranks').innerHTML = ranks.map(r => `<div class="c-cell" style="flex:1">${r}</div>`).join('');
+    document.getElementById('c-files').innerHTML = files.map(f => `<div class="c-cell" style="flex:1">${f}</div>`).join('');
+
+    for (const rank of ranks) {
+      for (const file of files) {
+        const sqn = file + rank;
+        const light = (FILES.indexOf(file) + rank) % 2 === 0;
+        const div = document.createElement('div');
+        div.className = 'sq ' + (light ? 'lt' : 'dk');
+        div.dataset.sq = sqn;
+
+        if (lastMove && (sqn === lastMove.from || sqn === lastMove.to)) div.classList.add('lm');
+        if (selSq === sqn) div.classList.add('sl');
+        if (legalTgts.includes(sqn)) {
+          const m = document.createElement('div');
+          m.className = state.board[sqn] ? 'cring' : 'dot';
+          div.appendChild(m);
+        }
+        const piece = state.board[sqn];
+        if (piece) {
+          const pe = document.createElement('div');
+          pe.className = 'piece';
+          pe.textContent = GLYPH[piece];
+          div.appendChild(pe);
+        }
+
+        div.addEventListener('click', () => onSqClick(sqn));
+        div.addEventListener('mousedown', e => { if (e.button === 0) startDrag(sqn, e.clientX, e.clientY); });
+        div.addEventListener('touchstart', e => { e.preventDefault(); const t = e.touches[0]; startDrag(sqn, t.clientX, t.clientY); }, { passive: false });
+        el.appendChild(div);
       }
-      const piece=state.board[sqn];
-      if(piece){const pe=document.createElement('div');pe.className='piece';pe.textContent=GLYPH[piece];div.appendChild(pe);}
-      div.addEventListener('click',()=>onSqClick(sqn));
-      div.addEventListener('mousedown',e=>{if(e.button===0)startDrag(sqn,e.clientX,e.clientY);});
-      div.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0];startDrag(sqn,t.clientX,t.clientY);},{passive:false});
-      board.appendChild(div);
-    }}
-    // Global drag handlers on board
-    board.onmousemove=e=>{if(dragPiece){moveGhost(e.clientX,e.clientY);hoverSq(e.clientX,e.clientY);}};
-    board.ontouchmove=e=>{if(dragPiece){e.preventDefault();const t=e.touches[0];moveGhost(t.clientX,t.clientY);hoverSq(t.clientX,t.clientY);}};
-    board.onmouseup=e=>{if(dragPiece){const el=document.elementFromPoint(e.clientX,e.clientY);endDrag(el?.closest('[data-sq]')?.dataset?.sq);}};
-    board.ontouchend=e=>{if(dragPiece){const t=e.changedTouches[0];const el=document.elementFromPoint(t.clientX,t.clientY);endDrag(el?.closest('[data-sq]')?.dataset?.sq);}};
+    }
+
+    el.onmousemove = e => { if (dragPiece) { moveGhost(e.clientX, e.clientY); hoverSq(e.clientX, e.clientY); } };
+    el.ontouchmove = e => { if (dragPiece) { e.preventDefault(); const t = e.touches[0]; moveGhost(t.clientX, t.clientY); hoverSq(t.clientX, t.clientY); } };
+    el.onmouseup = e => { if (dragPiece) endDrag(document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-sq]')?.dataset?.sq); };
+    el.ontouchend = e => { if (dragPiece) { const t = e.changedTouches[0]; endDrag(document.elementFromPoint(t.clientX, t.clientY)?.closest('[data-sq]')?.dataset?.sq); } };
   }
 
-  function isPlayerPiece(p){if(!cur)return false;return cur.side==='w'?isW(p):isB(p);}
+  function isPlayerPiece(p) { return cur ? (cur.side === 'w' ? isW(p) : isB(p)) : false; }
 
-  function onSqClick(sqn){
-    if(solved||dragPiece)return;
-    if(selSq===sqn){selSq=null;legalTgts=[];renderBoard();return;}
-    if(selSq&&legalTgts.includes(sqn)){doMove(selSq,sqn);return;}
-    const p=state.board[sqn];
-    if(p&&isPlayerPiece(p)){selSq=sqn;legalTgts=legalMoves(state,sqn);renderBoard();}
-    else{selSq=null;legalTgts=[];renderBoard();}
-  }
-
-  function startDrag(sqn,x,y){
-    const p=state.board[sqn];if(!p||!isPlayerPiece(p)||solved)return;
-    dragFrom=sqn;dragPiece=p;selSq=sqn;legalTgts=legalMoves(state,sqn);renderBoard();
-    const g=document.getElementById('drag-ghost');g.textContent=GLYPH[p];g.style.display='block';g.style.left=x+'px';g.style.top=y+'px';
-    document.querySelector(`[data-sq="${sqn}"] .piece`)?.classList.add('dragging');
-  }
-  function moveGhost(x,y){const g=document.getElementById('drag-ghost');g.style.left=x+'px';g.style.top=y+'px';}
-  function hoverSq(x,y){
-    document.querySelectorAll('.sq.hover-target').forEach(e=>e.classList.remove('hover-target'));
-    const el=document.elementFromPoint(x,y)?.closest('[data-sq]');
-    if(el&&legalTgts.includes(el.dataset.sq))el.classList.add('hover-target');
-  }
-  function endDrag(toSq){
-    document.getElementById('drag-ghost').style.display='none';
-    document.querySelectorAll('.sq.hover-target').forEach(e=>e.classList.remove('hover-target'));
-    const from=dragFrom;dragPiece=null;dragFrom=null;
-    if(toSq&&toSq!==from&&legalTgts.includes(toSq)){selSq=null;legalTgts=[];doMove(from,toSq);}
-    else{selSq=null;legalTgts=[];renderBoard();}
+  // ── INTERACTION ──
+  function onSqClick(sqn) {
+    if (isDone || dragPiece) return;
+    if (selSq === sqn) { selSq = null; legalTgts = []; renderBoard(); return; }
+    if (selSq && legalTgts.includes(sqn)) { doMove(selSq, sqn); return; }
+    const p = state.board[sqn];
+    if (p && isPlayerPiece(p)) { selSq = sqn; legalTgts = legalMoves(state, sqn); renderBoard(); }
+    else { selSq = null; legalTgts = []; renderBoard(); }
   }
 
-  function doMove(from,to){
-    const uci=from+to;const exp=solMoves[solIdx];
-    const piece=state.board[from];
-    let promo=null;
-    if(piece&&piece.toLowerCase()==='p'){const r=+to[1];if((isW(piece)&&r===8)||(isB(piece)&&r===1))promo='q';}
-    const full=uci+(promo||'');
-    if(full===exp||uci===exp.slice(0,4)){
-      // Correct
-      lastMove={from,to};state=applyMove(state,{from,to,promo});solIdx++;selSq=null;legalTgts=[];
-      renderBoard();flash([from,to],'cf');
-      if(solIdx>=solMoves.length){setTimeout(()=>complete(true),400);}
-      else{
-        feedback('✓ Good! Keep going…','correct');
-        setTimeout(()=>{
-          const m=solMoves[solIdx];const mv={from:m.slice(0,2),to:m.slice(2,4),promo:m[4]||null};
-          lastMove={from:mv.from,to:mv.to};state=applyMove(state,mv);solIdx++;selSq=null;legalTgts=[];renderBoard();
-          if(solIdx>=solMoves.length)setTimeout(()=>complete(true),400);
-          else feedback('Find the next move','info');
-        },650);
+  function startDrag(sqn, x, y) {
+    const p = state.board[sqn]; if (!p || !isPlayerPiece(p) || isDone) return;
+    dragFrom = sqn; dragPiece = p; selSq = sqn; legalTgts = legalMoves(state, sqn); renderBoard();
+    const g = document.getElementById('ghost'); g.textContent = GLYPH[p]; g.style.display = 'block'; g.style.left = x+'px'; g.style.top = y+'px';
+    document.querySelector(`[data-sq="${sqn}"] .piece`)?.classList.add('faded');
+  }
+  function moveGhost(x, y) { const g = document.getElementById('ghost'); g.style.left = x+'px'; g.style.top = y+'px'; }
+  function hoverSq(x, y) {
+    document.querySelectorAll('.sq.hov').forEach(e => e.classList.remove('hov'));
+    const el = document.elementFromPoint(x, y)?.closest('[data-sq]');
+    if (el && legalTgts.includes(el.dataset.sq)) el.classList.add('hov');
+  }
+  function endDrag(toSq) {
+    document.getElementById('ghost').style.display = 'none';
+    document.querySelectorAll('.sq.hov').forEach(e => e.classList.remove('hov'));
+    const from = dragFrom; dragPiece = null; dragFrom = null;
+    if (toSq && toSq !== from && legalTgts.includes(toSq)) { selSq = null; legalTgts = []; doMove(from, toSq); }
+    else { selSq = null; legalTgts = []; renderBoard(); }
+  }
+
+  // ── MOVE LOGIC ──
+  function doMove(from, to) {
+    const exp = solMoves[solIdx];
+    const piece = state.board[from];
+    let promo = null;
+    if (piece?.toLowerCase() === 'p') { const r = +to[1]; if ((isW(piece) && r===8)||(isB(piece) && r===1)) promo = exp?.[4] || 'q'; }
+    const uci = from + to + (promo || '');
+    const expBase = exp?.slice(0, 4);
+
+    if (uci === exp || from+to === expBase) {
+      // ✓ Correct
+      lastMove = { from, to }; state = applyMove(state, { from, to, promo }); solIdx++;
+      selSq = null; legalTgts = []; renderBoard(); flash([from, to], 'cf');
+
+      if (solIdx >= solMoves.length) {
+        setTimeout(() => complete(true), 380);
+      } else {
+        setFeedback('✓ Correct! Keep going…', 'ok');
+        setTimeout(() => {
+          // Opponent's response
+          const mv = solMoves[solIdx]; const mf = mv.slice(0,2), mt = mv.slice(2,4), mp = mv[4]||null;
+          lastMove = { from:mf, to:mt }; state = applyMove(state, {from:mf, to:mt, promo:mp}); solIdx++;
+          selSq = null; legalTgts = []; renderBoard();
+          if (solIdx >= solMoves.length) setTimeout(() => complete(true), 380);
+          else setFeedback('Find the next move', 'info');
+        }, 620);
       }
-    }else{
-      wrongCount++;flash([from,to],'wf');
-      feedback('✗ Not right — try again','wrong');
-      selSq=null;legalTgts=[];renderBoard();
+    } else {
+      // ✗ Wrong — retry
+      flash([from, to], 'wf');
+      setFeedback('✗ Not the right move — try again', 'bad');
+      selSq = null; legalTgts = []; renderBoard();
     }
   }
 
-  function flash(sqs,cls){
-    sqs.forEach(s=>{
-      const el=document.querySelector(`[data-sq="${s}"]`);
-      if(el){el.classList.add(cls);setTimeout(()=>el.classList.remove(cls),500);}
-    });
+  function flash(sqs, cls) {
+    sqs.forEach(s => { const el = document.querySelector(`[data-sq="${s}"]`); if (el) { el.classList.add(cls); setTimeout(() => el.classList.remove(cls), 480); } });
   }
 
-  function complete(success){
-    solved=true;
-    const today=new Date().toDateString();
-    if(user.lastDay!==today){const yest=new Date(Date.now()-86400000).toDateString();user.streak=user.lastDay===yest?(user.streak||0)+1:1;user.lastDay=today;}
-    const pRating={easy:1000,medium:1400,hard:1800}[cur.diff||'medium'];
-    if(success){user.rating=eloUpdate(user.rating,pRating,1);user.solved=(user.solved||0)+1;}
-    else{user.rating=eloUpdate(user.rating,pRating,0);user.failed=(user.failed||0)+1;}
-    user.rating=Math.max(400,user.rating);
-    if(!user.sr)user.sr={};user.sr[cur.id]=srSchedule(user.sr[cur.id],success);
-    if(!user.history)user.history=[];
-    user.history.push({puzzleId:cur.id,name:cur.name,success,ts:Date.now()});
-    if(user.history.length>100)user.history.shift();
-    const users=DB.get('users',{});users[user.nick]=user;DB.set('users',users);DB.set('currentUser',user);
+  function complete(success) {
+    isDone = true;
+    // Streak
+    const today = new Date().toDateString();
+    if (user.lastDay !== today) {
+      const yest = new Date(Date.now()-86400000).toDateString();
+      user.streak = user.lastDay === yest ? (user.streak||0)+1 : 1;
+      user.lastDay = today;
+    }
+    // Rating
+    const pRating = { easy:1000, medium:1400, hard:1800 }[cur.difficulty] || 1400;
+    const prevRating = user.rating;
+    if (success) { user.rating = eloUpdate(user.rating, pRating, 1); user.solved = (user.solved||0)+1; }
+    else { user.rating = eloUpdate(user.rating, pRating, 0); user.failed = (user.failed||0)+1; }
+    user.rating = Math.max(400, user.rating);
+    // SR
+    if (!user.sr) user.sr = {};
+    user.sr[cur.id] = srSchedule(user.sr[cur.id], success);
+    // History
+    if (!user.history) user.history = [];
+    user.history.push({ name: cur.title, success, ts: Date.now(), ratingAfter: user.rating });
+    if (user.history.length > 150) user.history.shift();
+    // Persist
+    const users = DB.get('users', {}); users[user.nick] = user; DB.set('users', users); DB.set('currentUser', user);
     renderHeader();
-    document.getElementById('modal-title').textContent=success?'🎉 Puzzle Solved!':'💡 Solution Revealed';
-    document.getElementById('modal-body').textContent=success
-      ?`Excellent! You cracked the ${cur.moves.length}-move combination. Rating → ${user.rating}`
-      :`That one was tough. Rating → ${user.rating}. Study the solution and try again!`;
+    const diff = user.rating - prevRating;
+    const diffStr = diff >= 0 ? `+${diff}` : `${diff}`;
+    document.getElementById('modal-title').textContent = success ? '🎉 Puzzle Solved!' : '💡 Solution Shown';
+    document.getElementById('modal-body').textContent = success
+      ? `Great find! Rating: ${user.rating} (${diffStr})`
+      : `Tough one. Rating: ${user.rating} (${diffStr}). Review the solution and press Next.`;
     document.getElementById('modal').classList.add('open');
   }
 
-  function hint(){
-    if(!cur||solved)return;
-    const from=solMoves[solIdx]?.slice(0,2);if(!from)return;
-    selSq=from;legalTgts=legalMoves(state,from);renderBoard();
-    feedback(`Hint: start from ${from.toUpperCase()}`,'info');
+  // ── CONTROLS ──
+  function hint() {
+    if (!cur || isDone) return;
+    const from = solMoves[solIdx]?.slice(0, 2); if (!from) return;
+    selSq = from; legalTgts = legalMoves(state, from); renderBoard();
+    setFeedback(`Hint: piece on ${from.toUpperCase()}`, 'info');
   }
 
-  function skip(){
-    if(!cur)return;
-    for(let i=solIdx;i<solMoves.length;i++){
-      const m=solMoves[i];const mv={from:m.slice(0,2),to:m.slice(2,4),promo:m[4]||null};
-      lastMove={from:mv.from,to:mv.to};state=applyMove(state,mv);
+  function skip() {
+    if (!cur) return;
+    // Play remaining moves
+    for (let i = solIdx; i < solMoves.length; i++) {
+      const mv = solMoves[i]; const mf=mv.slice(0,2),mt=mv.slice(2,4),mp=mv[4]||null;
+      lastMove={from:mf,to:mt}; state=applyMove(state,{from:mf,to:mt,promo:mp});
     }
-    solIdx=solMoves.length;renderBoard();complete(false);
+    solIdx = solMoves.length; renderBoard(); complete(false);
   }
 
-  function next(){closeModal();loadNextPuzzle();}
-  function closeModal(){document.getElementById('modal').classList.remove('open');}
-  function setTheme(t){themeFilter=t;document.querySelectorAll('.filter-chip').forEach(el=>el.classList.toggle('active',el.dataset.theme===t));loadNextPuzzle();}
-  function switchTab(tab){
-    document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',['puzzle','progress'][i]===tab));
-    document.querySelectorAll('.tab-content').forEach(el=>el.classList.toggle('active',el.id===tab+'-tab'));
-    if(tab==='progress')renderProgress();
+  function flipBoard() { flipped = !flipped; renderBoard(); }
+  function next() { closeModal(); loadNextPuzzle(); }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+  function theme(t) {
+    themeFilter = t;
+    document.querySelectorAll('.chip').forEach(el => el.classList.toggle('on', el.dataset.t === t));
+    if (allPuzzles.length) loadNextPuzzle();
   }
-  function feedback(msg,type){const el=document.getElementById('feedback-msg');el.textContent=msg;el.className='feedback-msg '+type;}
+
+  function tab(name) {
+    document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',['puzzle','progress','info'][i]===name));
+    document.querySelectorAll('.tab-body').forEach(el=>el.classList.toggle('on',el.id==='tb-'+name));
+    if (name==='progress') renderProgress();
+  }
+
+  // ── UI HELPERS ──
+  function renderHeader() {
+    document.getElementById('h-rating').textContent = user.rating;
+    document.getElementById('h-avatar').textContent = user.nick[0].toUpperCase();
+    document.getElementById('h-streak').textContent = user.streak;
+    document.getElementById('s-rating').textContent = user.rating;
+    document.getElementById('s-solved').textContent = user.solved || 0;
+    document.getElementById('s-streak').textContent = (user.streak||0) + ' 🔥';
+    const tot = (user.solved||0) + (user.failed||0);
+    document.getElementById('s-acc').textContent = tot ? Math.round((user.solved||0)/tot*100)+'%' : '—';
+  }
+
+  function renderProgress() {
+    renderHeader();
+    updatePoolStats();
+    const hist = user.history || [];
+    const el = document.getElementById('hist-list');
+    if (!hist.length) { el.innerHTML = '<div class="empty" style="padding:1rem 0"><div class="empty-ico">📋</div><p>No activity yet</p></div>'; return; }
+    el.innerHTML = [...hist].reverse().slice(0, 30).map(h =>
+      `<div class="hist-item"><span>${h.name||'Puzzle'}</span><span class="${h.success?'hr-ok':'hr-fail'}">${h.success?'✓ Solved':'✗ Skipped'}</span></div>`
+    ).join('');
+  }
+
+  function setFeedback(msg, type) { const el=document.getElementById('feedback'); el.textContent=msg; el.className='fbk '+type; }
 
   let toastTmr;
-  function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTmr);toastTmr=setTimeout(()=>el.classList.remove('show'),2500);}
+  function toast(msg) { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastTmr); toastTmr=setTimeout(()=>el.classList.remove('show'),2500); }
 
-  return{init,login,showScreen,showAdminLogin,adminLogin,exitAdmin,changePw,resetAll,addPuzzle,deletePuzzle,loadSamples,hint,skip,next,closeModal,setTheme,switchTab};
+  return { init, login, logout, tab, theme, hint, skip, flipBoard, next, closeModal };
 })();
 
-document.addEventListener('DOMContentLoaded',App.init);
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement===document.getElementById('nickname-input'))App.login();});
+document.addEventListener('DOMContentLoaded', A.init);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.activeElement === document.getElementById('nick-input')) A.login();
+});
 </script>
 </body>
 </html>
